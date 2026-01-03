@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/api/v1/Account/101",
+    "headers": {
+      "Content-Type":  {
+        "equalTo": "application/json"
+      }
+    }
+    
+  },
+
+  "response": {
+    "status": 204,
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
