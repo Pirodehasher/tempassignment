@@ -1,0 +1,1870 @@
+{
+	"info": {
+		"_postman_id": "a68cc34a-fbc1-4e6b-a813-0cbf50eee35f",
+		"name": "API-Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32833312"
+	},
+	"item": [
+		{
+			"name": "ScriptMethods",
+			"item": [
+				{
+					"name": "Login-Info-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Log Info\", function () {\r",
+									"    console.log(\"RequestName\",pm.info.requestName);\r",
+									"    console.log(\"RequestId\",pm.info.requestId);\r",
+									"    console.log(\"Iteration\",pm.info.iteration);\r",
+									"    console.log(\"IterationCount\",pm.info.iterationCount);\r",
+									"    console.log(\"EventName\",pm.info.eventName);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request-Header-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Log Info\", function () {\r",
+									"    pm.request.headers.add({\r",
+									"        key: 'X-Pm-Add',\r",
+									"        value: 'added-by-add'\r",
+									"    });\r",
+									"\r",
+									"    pm.request.headers.upsert({\r",
+									"        key: 'X-Pm-Upsert',\r",
+									"        value: 'first-value'\r",
+									"    });\r",
+									"\r",
+									"    pm.request.headers.upsert({\r",
+									"        key: 'X-Pm-Upsert',\r",
+									"        value: 'updated-by-upsert'\r",
+									"    });\r",
+									"    pm.request.headers.add({\r",
+									"        key: 'X-Pm-Remove',\r",
+									"        value: 'should-be-removed'\r",
+									"    });\r",
+									"    pm.request.headers.remove('X-Pm-Remove');\r",
+									"    console.log(\"URL\", pm.request.url);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/header-test.php",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"header-test.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Log Info\", function () {\r",
+									"    console.log(\"Full URL:\", pm.request.url.toString());\r",
+									"    console.log(\"Path:\", pm.request.url.getPath());\r",
+									"    console.log(\"Query params:\", pm.request.url.query.toObject());\r",
+									"    console.log(\"Method:\", pm.request.method);\r",
+									"    console.log(\"Raw body:\", pm.request.body.raw);\r",
+									"    console.log(\"Auth type:\", pm.request.auth.type);\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/header-test.php?search=mobile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"header-test.php"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "mobile"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Log Info\", function () {\r",
+									"    console.clear();\r",
+									"    console.log(\"Cookies\",pm.response.cookies)\r",
+									"    console.log(\"Reason\",pm.response.reason())\r",
+									"    console.log(\"JsonBody\",pm.response.json())\r",
+									"    console.log(\"Text\",pm.response.text())\r",
+									"    console.log(\"ResponseSize\",pm.response.size())\r",
+									"    console.log(\"ResponseTime\",pm.response.responseTime)\r",
+									"    console.log(\"Status\",pm.response.status)\r",
+									"    console.log(\"StatusCode\",pm.response.code)\r",
+									"    console.log(\"Headers\",pm.response.headers)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.body();\r",
+									"    pm.response.to.have.header(\"Cache-Control\",\"no-store, no-cache, must-revalidate\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Eql Test\", function () {\r",
+									"    var obj1 = {id:1}\r",
+									"    var obj2 = {id:1}\r",
+									"    pm.expect(obj1).to.eql(obj2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Equals Test\", function () {\r",
+									"    var obj1 = {id:1}\r",
+									"    var obj2 = {id:1}\r",
+									"    var obj3 = obj1;\r",
+									"    pm.expect(obj1).to.eq(obj2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Greater Than\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.gt(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Greater Than Equal\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.gte(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Less Than\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.lt(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Less Than Equal\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.lte(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Within Range\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.within(1,100);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data Type\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.be.a(\"number\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Not Null\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"OK Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id==1).to.ok;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"True/False\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id==10).to.false;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Null Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].city).to.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Undefined Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].city).to.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"String match\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/application\\/json/);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Include Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].title).to.include(\"Clean\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Length Of\", function () {\r",
+									"    pm.expect(pm.response.json().data).to.have.lengthOf(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Property Exist\", function () {\r",
+									"    pm.expect(pm.response.json().data[0]).to.have.property(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Object Keys\", function () {\r",
+									"    pm.expect(pm.response.json().data[0]).to.have.keys(\"id\",\"title\", \"author\", \"price\", \"stock\",\"createdAt\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Own Property\", function () {\r",
+									"    pm.expect(pm.response.json().data[0]).to.have.ownProperty(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deep Property\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.nested.property(\"meta.total\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Members Test\", function () {\r",
+									"    pm.expect([\"GET\", \"POST\", \"PUT\"]).to.include.members([\"GET\", \"POST\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"OneOf Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.oneOf([1,2,3]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Not Test\", function () {\r",
+									"    pm.expect(pm.response.json().data[0].id).to.not.eql(100);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Variables-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Variable Example\", function() {",
+									"    console.log(\"Global Variable \",pm.globals.get(\"team\"));",
+									"    console.log(\"Environment Variable \",pm.environment.get(\"username\"));",
+									"    pm.variables.set(\"test\",\"test1\")",
+									"})",
+									"",
+									"pm.test(\"Check Global Variables Exist\", function () {",
+									"    pm.expect(pm.globals.has(\"app\")).to.be.true;",
+									"    console.log(\"Variable \",pm.variables.get(\"test\"));",
+									"});",
+									"",
+									"pm.test(\"Global Get Variables\", function () {",
+									"    pm.expect(pm.globals.get(\"app\")).to.eq(\"dev\");",
+									"});",
+									"",
+									"pm.test(\"ReplaceIn Test\", function () {",
+									"    var resolved = pm.variables.replaceIn(\"{{base_url}}/api/books\");",
+									"    pm.expect(resolved).to.eq(\"http://localhost/api-demo/api/books\");",
+									"});",
+									"",
+									"pm.test(\"ToObject Test\", function () {",
+									"    console.log(pm.globals.toObject());",
+									"});",
+									"",
+									"pm.test(\"Unset Test\", function () {",
+									"    console.log(\"Before Unset\", pm.globals.get(\"release\"))",
+									"    pm.globals.unset(\"release\");",
+									"    console.log(\"After Unset\", pm.globals.get(\"release\"))",
+									"});",
+									"",
+									"pm.test(\"ToObject Test\", function () {",
+									"    console.log(pm.globals.toObject());",
+									"});",
+									"",
+									"pm.test(\"Clear Test\", function () {",
+									"    pm.globals.clear();",
+									"});",
+									"",
+									"pm.test(\"ToObject Test\", function () {",
+									"    console.log(pm.globals.toObject());",
+									"});",
+									"",
+									"pm.test(\"Get Local Variables\", function () {",
+									"    pm.expect(pm.variables.get(\"appName\")).to.eq(\"ESPOCrm\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Global Set Variables\", function () {\r",
+									"    pm.globals.set(\"app\", \"dev\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Global Set Temp Variables\", function () {\r",
+									"    pm.globals.set(\"release\", \"1.0\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Set Local Variables\", function () {\r",
+									"    pm.variables.set(\"appName\", \"ESPOCrm\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cookies-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check Cookies\", function () {",
+									"    pm.expect(pm.cookies.has(\"PHPSESSID\")).to.true;",
+									"});",
+									"",
+									"pm.test(\"Get Cookies\", function () {",
+									"    console.log(pm.cookies.get(\"PHPSESSID\"));",
+									"});",
+									"",
+									"pm.test(\"Cookies Object\", function () {",
+									"    console.log(pm.cookies.toObject())",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condition-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    pm.test(\"Status is 200 – OK\", function () {",
+									"        pm.response.to.have.status(200);",
+									"    });",
+									"} else {",
+									"    pm.test(\"Status is NOT 200\", function () {",
+									"        pm.expect(pm.response.code).to.not.eql(200);",
+									"    });",
+									"}",
+									"",
+									"pm.test(\"Loop Test\", function () {",
+									"    pm.response.json().data.forEach(item => {",
+									"        pm.expect(item).to.have.property(\"id\");",
+									"        pm.expect(item).to.have.property(\"title\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visualizer-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse response",
+									"const res = pm.response.json();",
+									"",
+									"// HTML + Handlebars template (no unsupported helpers)",
+									"const template = `",
+									"<html>",
+									"<head>",
+									"  <style>",
+									"    body {",
+									"      font-family: Arial, sans-serif;",
+									"      padding: 16px;",
+									"    }",
+									"    h2 {",
+									"      margin-top: 0;",
+									"    }",
+									"    .meta {",
+									"      margin-bottom: 12px;",
+									"      font-size: 13px;",
+									"      color: #555;",
+									"    }",
+									"    table {",
+									"      border-collapse: collapse;",
+									"      width: 100%;",
+									"      margin-top: 8px;",
+									"    }",
+									"    th, td {",
+									"      border: 1px solid #ddd;",
+									"      padding: 8px;",
+									"      font-size: 13px;",
+									"    }",
+									"    th {",
+									"      background: #f4f4f4;",
+									"      text-align: left;",
+									"    }",
+									"    tr:nth-child(even) {",
+									"      background: #fafafa;",
+									"    }",
+									"    .badge {",
+									"      display: inline-block;",
+									"      padding: 2px 6px;",
+									"      border-radius: 4px;",
+									"      font-size: 11px;",
+									"      background: #e3f2fd;",
+									"      border: 1px solid #90caf9;",
+									"      color: #0d47a1;",
+									"      margin-left: 4px;",
+									"    }",
+									"  </style>",
+									"</head>",
+									"<body>",
+									"  <h2>Books Inventory</h2>",
+									"",
+									"  <div class=\"meta\">",
+									"    <div><strong>Total:</strong> {{meta.total}}</div>",
+									"    <div><strong>Page:</strong> {{meta.page}} / {{meta.totalPages}}</div>",
+									"    <div><strong>Per Page:</strong> {{meta.perPage}}</div>",
+									"  </div>",
+									"",
+									"  <table>",
+									"    <thead>",
+									"      <tr>",
+									"        <th>ID</th>",
+									"        <th>Title &amp; Author</th>",
+									"        <th>Price (₹)</th>",
+									"        <th>Stock</th>",
+									"        <th>Created At</th>",
+									"      </tr>",
+									"    </thead>",
+									"    <tbody>",
+									"      {{#each books}}",
+									"      <tr>",
+									"        <td>{{id}}</td>",
+									"        <td>",
+									"          <strong>{{title}}</strong><br/>",
+									"          <span>{{author}}</span>",
+									"        </td>",
+									"        <td>{{price}}</td>",
+									"        <td>",
+									"          {{stock}}",
+									"        </td>",
+									"        <td>{{createdAt}}</td>",
+									"      </tr>",
+									"      {{/each}}",
+									"    </tbody>",
+									"  </table>",
+									"</body>",
+									"</html>",
+									"`;",
+									"",
+									"",
+									"pm.visualizer.set(template, {",
+									"    books: res.data || [],",
+									"    meta: res.meta",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"demo\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login-Assert-Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    console.log(pm.info.requestName);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status is not 404\", () => {\r",
+									"    pm.expect(pm.response.code).not.eql(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time < 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Expire Token is correct\", function () {\r",
+									"    let json = pm.response.json();\r",
+									"    pm.expect(json.expiresInSeconds).to.eql(3600);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Expire Token is number\", function () {\r",
+									"    let json = pm.response.json();\r",
+									"    pm.expect(json.expiresInSeconds).to.be.a(\"number\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"token exists\", () => {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Roles has at least 1 record\", () => {\r",
+									"    let arr = pm.response.json().user.roles;\r",
+									"    pm.expect(arr.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each item has id\", () => {\r",
+									"    pm.response.json().roles.forEach(item => {\r",
+									"        pm.expect(item).to.have.property(\"id\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data-Driven-Test",
+			"item": [
+				{
+					"name": "AddBook-Parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{title}}\",\r\n    \"author\": \"{{author}}\",\r\n    \"price\": {{price}},\r\n    \"stock\": {{stock}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ValidateAddedBooks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Basic sanity checks\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const res = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Data array is present\", function () {\r",
+									"    pm.expect(res).to.have.property(\"data\");\r",
+									"    pm.expect(res.data).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"// ---- Data-driven validation using CSV ----\r",
+									"\r",
+									"// Get expected values from current CSV row\r",
+									"const expectedTitle  = (pm.iterationData.get(\"title\")  || \"\").trim();\r",
+									"const expectedAuthor = (pm.iterationData.get(\"author\") || \"\").trim();\r",
+									"const expectedPrice  = parseInt(pm.iterationData.get(\"price\"), 10);\r",
+									"const expectedStock  = parseInt(pm.iterationData.get(\"stock\"), 10);\r",
+									"\r",
+									"// Find matching book in response\r",
+									"const matchingBook = res.data.find(b => \r",
+									"    (b.title || \"\").trim()  === expectedTitle &&\r",
+									"    (b.author || \"\").trim() === expectedAuthor\r",
+									");\r",
+									"\r",
+									"pm.test(`Book \"${expectedTitle}\" should exist in store`, function () {\r",
+									"    pm.expect(matchingBook, `Book not found: ${expectedTitle}`).to.exist;\r",
+									"});\r",
+									"\r",
+									"if (matchingBook) {\r",
+									"    pm.test(`Price matches for \"${expectedTitle}\"`, function () {\r",
+									"        pm.expect(matchingBook.price, \"Price mismatch\").to.eql(expectedPrice);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(`Stock matches for \"${expectedTitle}\"`, function () {\r",
+									"        pm.expect(matchingBook.stock, \"Stock mismatch\").to.eql(expectedStock);\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WireMock",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Amit\",\r\n  \"role\": \"User\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/101",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/books?page=1&perPage=2&author=Robert",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "perPage",
+							"value": "2"
+						},
+						{
+							"key": "author",
+							"value": "Robert"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"API by piyush\",\r\n    \"author\": \"Piyush\",\r\n    \"price\": 299,\r\n    \"stock\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/books",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/books",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BookDetails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/books/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBookComplete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"newchneg book\",\r\n    \"author\": \"piyush1\",\r\n    \"price\": 499,\r\n    \"stock\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/books/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBookPartial",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock\": 20\r\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/books/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/books/8",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadFile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/CDAC/TAF/DemoTestData.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/upload",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DownloadFile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/files/DemoTestData.csv",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"files",
+						"DemoTestData.csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Flaky",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/swapn/Downloads/Acct_Statement_XXXXXXXX8520_03122025.xls"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/flaky",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"flaky"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RateLimited",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/swapn/Downloads/Acct_Statement_XXXXXXXX8520_03122025.xls"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/rate-limited",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"rate-limited"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ResetMemory",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/swapn/Downloads/Acct_Statement_XXXXXXXX8520_03122025.xls"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/books/reset",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"books",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SlowAPI",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/swapn/Downloads/Acct_Statement_XXXXXXXX8520_03122025.xls"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/slow",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"slow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ForcedErrors",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/error/400",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"error",
+						"400"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/api-demo/api/xss_api.php",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\":\"<script>alert('XSS')</script>\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api-demo/api/xss_api.php?type=reflect&mode=vulnerable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-demo",
+						"api",
+						"xss_api.php"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "reflect"
+						},
+						{
+							"key": "mode",
+							"value": "vulnerable"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": ""
+		}
+	]
+}
